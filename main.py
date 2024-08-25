@@ -6,10 +6,11 @@ load_dotenv()
 from telegram import Update
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes
 
+REPLICATE_API_TOKEN = os.getenv('REPLICATE_API_TOKEN')
 TELEGRAM_API_KEY = os.getenv('TELEGRAM_API_KEY')
 BOT_NAME = os.getenv('BOT_NAME')
 
-print(f"TELEGRAM_API_KEY: {TELEGRAM_API_KEY}, BOT_NAME: {BOT_NAME}")
+print(f"TELEGRAM_API_KEY: {TELEGRAM_API_KEY}, REPLICATE_API_TOKEN: {REPLICATE_API_TOKEN}, BOT_NAME: {BOT_NAME}, ")
 
 # COMMANDS
 async def start_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
