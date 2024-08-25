@@ -6,9 +6,10 @@ load_dotenv()
 from telegram import Update
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes
 
-TOKEN = os.getenv('API_KEY')
-AI = os.getenv('AI')
+TELEGRAM_API_KEY = os.getenv('TELEGRAM_API_KEY')
 BOT_NAME = os.getenv('BOT_NAME')
+
+print(f"TELEGRAM_API_KEY: {TELEGRAM_API_KEY}, BOT_NAME: {BOT_NAME}")
 
 # COMMANDS
 async def start_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -111,7 +112,7 @@ async def error(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 # GENERATE IMAGE
 async def generate_image(prompt: str):
-    output = replicate.run(AI, input={
+    output = replicate.run('black-forest-labs/flux-dev', input={
             "prompt": prompt,
             "guidance": 3.5,
             "num_outputs": 1,
@@ -126,7 +127,7 @@ async def generate_image(prompt: str):
 
 if __name__ == '__main__':
     print('starting Vonder...')
-    app = Application.builder().token(TOKEN).build()
+    app = Application.builder().token(TELEGRAM_API_KEY).build()
 
     app.add_handler(CommandHandler('start', start_command))
     app.add_handler(CommandHandler('generate', generate_command))
